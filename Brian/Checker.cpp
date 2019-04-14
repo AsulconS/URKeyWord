@@ -2,14 +2,19 @@
 
 #include <fstream>
 #include <iostream>
+#include "Matrix.h"
 using namespace std;
 
 void readingData();
 bool checkData( string );
+void dataProccessor();
 
 int main() {
 
     readingData();
+    Matrix M( 1, 1 );
+    M.fillMatrixArch( "Hola.txt");
+    M.printMatrix();
     return 0;
 }
 
@@ -18,6 +23,7 @@ void readingData() {
     ifstream archive;
     ofstream errors;
     string name, text;
+    bool control = true;
 
     cout << "INGRESE EL NOMBRE DEL ARCHIVO A LEER: " << endl;
     cin >> name;
@@ -27,15 +33,17 @@ void readingData() {
 
     if( archive.fail()) {
         cout << "Incapaz de abrir el archivo..." << endl;
-        exit( 1 );
+        exit( EXIT_FAILURE );
     }
 
     while( !archive.eof()) {
         getline( archive, text );
-        if( !checkData( text ))
+        if( !checkData( text )) {
+            control = false;
             errors << text << endl;
+        }
     }
-    
+
     archive.close();
     errors.close();
 }
@@ -51,7 +59,7 @@ bool checkData( string text ) {
             ++acc;
         }
 
-        if( acc == 4 ) return true;
+        if( acc == 5 ) return true;
         else return false;
     }
 }

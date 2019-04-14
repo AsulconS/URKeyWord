@@ -11,12 +11,13 @@ class Matrix {
     
     public:
         Matrix();
-        Matrix( int, int );
+        Matrix( const int, const int );
         ~Matrix();
 
         void printMatrix();
         void fillMatrixUser();
         void fillMatrixArch( string arch );
+        string getData( const int pos_i, const int pos_j );
     
     private:
         int row, column;
@@ -34,7 +35,7 @@ Matrix::Matrix() {
 }
 
 
-Matrix::Matrix( int row, int column ) {
+Matrix::Matrix( const int row, const int column ) {
 
     this -> row = row;
     this -> column = column;
@@ -109,6 +110,10 @@ void Matrix::fillMatrixArch( string arch ) {
             m_matrix[ i ][ j ] = temp[ k ];
             ++k;
         }
+}
+
+string Matrix::getData( const int pos_i, const int pos_j ) {
+    return m_matrix[ pos_i ][ pos_j ];
 }
 
 

@@ -9,8 +9,8 @@ template<class K, class V>
 struct Nodo {
   K key;
   V val;
-  unsigned int pos;
-  Nodo(const K &k, const V &v,const unsigned int &p) : val(v), key(k),pos(p) {}
+  unsigned long start,end;
+  Nodo(const K &k, const V &v,const unsigned long &s,const unsigned long&e) : val(v), key(k),start(s),end(e) {}
 };
 
 template<class T> struct myHash {
@@ -39,8 +39,8 @@ public:
     }
   }
   ~HashTable() {}
-  void set(const K &k, const V &v,const unsigned int &p) {
-    Nodo<K, V> b(k, v,p);
+  void set(const K &k, const V &v,const unsigned long &s,const unsigned long &e) {
+    Nodo<K, V> b(k, v,s,e);
     for(int i = 0; i < table[hash(k)].size(); i++)
       if(table[hash( k )][i].key == k) {
         table[hash(k)][i] = b;
@@ -71,7 +71,7 @@ public:
       //cout << table[i].size() << endl;
       cout << i << " ";
       for (int j = 0; j < table[i].size(); ++j){
-        cout << table[i][j].val << " - " << table[i][j].pos;
+        cout << table[i][j].val << " - " << table[i][j].start << "-" << table[i][j].end << endl;
       }
       cout << endl;
     }

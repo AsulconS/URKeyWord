@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/Images"/>
+    <qresource prefix="/Files">
+        <file>Z.csv</file>
+        <file>indexFile.txt</file>
+    </qresource>
+</RCC>

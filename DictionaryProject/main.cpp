@@ -1,6 +1,8 @@
 #include "mainwindow.h"
 #include <QApplication>
 #include "hashtable.h"
+#include "hashtable.cpp"
+#include "node.h"
 #include "fstream"
 #include "iostream"
 #include <vector>
@@ -12,30 +14,31 @@ void writeIndexFile(const string &index,const unsigned long& start,const unsigne
     ofstream file("indexFile.txt",ios::app);
     file << index <<"," << start << "," << end << endl;
 }
+
 void createHashForFile(string fileName)
 {
     string line="";
     std::ifstream file(fileName);
     vector<string> readLine;
-    HashTable<int,string> h = HashTable<int,string>(600);
+    HashTable<string,Record> h = HashTable<string,Record>(600);
     unsigned long start=0,end=0;
     if(file.is_open())
     {
-        int k=0;
         unsigned long sum=0;
+        Record *r;
         while (getline(file,line)) {
             boost::split(readLine,line,boost::is_any_of("("));
             start=sum+readLine[0].length()+5;
             end=sum+line.length()+1;
             if(line.length()>2){
-                h.set(k,readLine[0],start,end);
+                r=new Record(start,end);
+                h.insert(readLine[0],*r);
                 writeIndexFile(readLine[0],start,end);
             }
-            k++;
             sum=sum+line.length()+1;
         }
     }
-    h.print();
+    //h.print();
 }
 void proof()
 {
@@ -48,21 +51,21 @@ void proof()
     cout << s << endl;
 
 }
-int main(int argc, char const *argv[])
+void proofHash()
 {
-    //proof();
-    createHashForFile("Z.csv");
-    /*unsigned int n=12;
-    HashTable<int,string> h = HashTable<int,string>(10);
-    h.set(3,"hola",n);
-    h.set(4,"hasdf",n);
-    h.set(9,"dsadsadasd",n);
-    h.print();
-    return 0;*/
-/*QApplication a(argc, argv);
-  MainWindow w;
-  w.show();
+    Record *r=new Record(2,3);
+    HashTable<string,Record> h = HashTable<string,Record>(600);
+    string txt="helll";
+    h.insert(txt,*r);
+    Node<string,Record> *ptr=h.find(txt);
+    cout << ptr->getData();
+}
 
-  return a.exec();*/
+int main(int argc, char *argv[])
+{
+    QApplication a(argc, argv);
+    MainWindow w;
+    w.show();
 
+    return a.exec();
 }

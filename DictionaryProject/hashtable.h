@@ -1,81 +1,27 @@
 #ifndef HASHTABLE_H
 #define HASHTABLE_H
-
 #include <iostream>
-#include <vector>
-using namespace std;
-
-template<class K, class V>
-struct Nodo {
-  K key;
-  V val;
-  unsigned long start,end;
-  Nodo(const K &k, const V &v,const unsigned long &s,const unsigned long&e) : val(v), key(k),start(s),end(e) {}
-};
-
-template<class T> struct myHash {
-};
-
-template<> struct myHash<string> {
-  static size_t hashFunction(const string& s) {
-    return std::hash<string>()(s);
-  }
-};
-
-template<> struct myHash<int> {
-  static size_t hashFunction(const int m) {
-    return std::hash<int>()(m);
-  }
-};
-
-template<class K, class V, class HashGenerator = myHash<K> >
-class HashTable {
+#include <string>
+#include "node.h"
+using namespace  std;
+template<typename K,typename V>
+class HashTable
+{
 public:
-  vector<vector<Nodo<K, V> > > table;
-  HashTable(int size) {
-    for(int i = 0; i < size; i++) {
-      vector<Nodo<K, V> > v;
-      table.push_back(v);
+    HashTable(const unsigned int &);
+    ~HashTable();
+    void insert(K &,const V & );
+    Node<K,V>* find(K &);
+    int getHash(K &);
+    unsigned int getHashTableSize() const;
+    void setHashTableSize(unsigned int value);
+    void createIndexFileFromHash();
+    void setHashFronIndexFile();
+    friend std::ostream & operator << (std::ostream &out,HashTable h)
+    {
     }
-  }
-  ~HashTable() {}
-  void set(const K &k, const V &v,const unsigned long &s,const unsigned long &e) {
-    Nodo<K, V> b(k, v,s,e);
-    for(int i = 0; i < table[hash(k)].size(); i++)
-      if(table[hash( k )][i].key == k) {
-        table[hash(k)][i] = b;
-        return;
-      }
-    table[hash(k)].push_back(b);
-  }
-
-
-
-  V get(const K &k) {
-    for(int i = 0; i < table[hash(k)].size(); i++)
-      if(table[hash(k)][i].key == k )
-        return table[hash(k)][i].val;
-  }
-  bool exist(const K &k) {
-    for(int i = 0; i < table[hash(k)].size(); i++)
-      if(table[hash(k)][i].key == k)
-        return true;
-    return false;
-  }
-  size_t hash(const K &k) {
-    return HashGenerator::hashFunction(k) % table.size();
-  }
-
-  void print(){
-    for (int i = 0; i < table.size(); ++i){
-      //cout << table[i].size() << endl;
-      cout << i << " ";
-      for (int j = 0; j < table[i].size(); ++j){
-        cout << table[i][j].val << " - " << table[i][j].start << "-" << table[i][j].end << endl;
-      }
-      cout << endl;
-    }
-  }
+private:
+    unsigned int hashTableSize;
+    Node<K,V> **table;
 };
-
 #endif // HASHTABLE_H

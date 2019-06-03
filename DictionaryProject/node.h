@@ -42,7 +42,7 @@ class Node
     friend class HashTable<K,V>;
 public:
     Node(const K &k,const V &v)
-        :key(k),data(v)
+        :key(k),data(v),nextPtr(nullptr)
     {
     }
     V getData() const;

@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include <QUrl>
 #include <QQmlContext>
+#include "fstream"
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -19,5 +20,18 @@ MainWindow::~MainWindow()
 
 QString MainWindow::leerNombre()
 {
-    return this->elnombre;
+    string s=getVal();
+    QString nn=QString::fromStdString(s);
+    return nn;
+}
+
+string MainWindow::getVal()
+{
+    std::ifstream file("Z.csv");
+    int start=27894,end=27952;
+    file.seekg(start);
+    string s;
+    s.resize(end-start);
+    file.read(&s[0],end-start);
+    return s;
 }

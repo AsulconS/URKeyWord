@@ -4,6 +4,8 @@
 #include <QMainWindow>
 #include <QString>
 #include <QQuickView>
+#include "iostream"
+using namespace std;
 namespace Ui {
 class MainWindow;
 }
@@ -16,6 +18,7 @@ public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
     Q_INVOKABLE QString leerNombre();
+    string getVal();
 private:
     Ui::MainWindow *ui;
     QString elnombre="gerson se la come entera";

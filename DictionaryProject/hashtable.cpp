@@ -31,8 +31,9 @@ HashTable<K,V>::~HashTable()
 template<typename K, typename V>
 void HashTable<K,V>::insert(K &key, const V & value)
 {
-    int hash=getHash(key)%this->hashTableSize;//get hash for string
-    if(!this->table[hash])//if the table[index] is empty create new Node
+    int hash=getHash(key)%hashTableSize;//get hash for string
+    cout << "the hash is " << hash << endl;
+    if(!table[hash])//if the table[index] is empty create new Node
     {
         table[hash]=new Node<K,V>(key,value);
         return;

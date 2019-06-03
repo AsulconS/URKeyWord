@@ -6,6 +6,7 @@
 #include "fstream"
 #include "iostream"
 #include <vector>
+#include "string"
 #include <bits/stdc++.h>
 #include <boost/algorithm/string.hpp>
 using namespace  std;
@@ -26,19 +27,22 @@ void createHashForFile(string fileName)
     {
         unsigned long sum=0;
         Record *r;
+        int i=0;
         while (getline(file,line)) {
             boost::split(readLine,line,boost::is_any_of("("));
             start=sum+readLine[0].length()+5;
             end=sum+line.length()+1;
-            if(line.length()>2){
+
+            if(readLine[0].length()>2){
+                cout << readLine[0] << start<<"----"<<end << endl;
                 r=new Record(start,end);
                 h.insert(readLine[0],*r);
                 writeIndexFile(readLine[0],start,end);
             }
+            i++;
             sum=sum+line.length()+1;
         }
     }
-    //h.print();
 }
 void proof()
 {
@@ -63,6 +67,8 @@ void proofHash()
 
 int main(int argc, char *argv[])
 {
+    //createHashForFile("Z.csv");
+
     QApplication a(argc, argv);
     MainWindow w;
     w.show();

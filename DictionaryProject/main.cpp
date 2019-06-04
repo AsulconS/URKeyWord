@@ -1,8 +1,5 @@
 #include "mainwindow.h"
 #include <QApplication>
-#include "hashtable.h"
-#include "hashtable.cpp"
-#include "node.h"
 #include "fstream"
 #include "iostream"
 #include <vector>
@@ -10,6 +7,7 @@
 #include <bits/stdc++.h>
 #include <boost/algorithm/string.hpp>
 using namespace  std;
+/*
 void writeIndexFile(const string &index,const unsigned long& start,const unsigned long &end )
 {
     ofstream file("indexFile.txt",ios::app);
@@ -32,7 +30,6 @@ void createHashForFile(string fileName)
             boost::split(readLine,line,boost::is_any_of("("));
             start=sum+readLine[0].length()+5;
             end=sum+line.length()+1;
-
             if(readLine[0].length()>2){
                 cout << readLine[0] << start<<"----"<<end << endl;
                 r=new Record(start,end);
@@ -42,6 +39,7 @@ void createHashForFile(string fileName)
             i++;
             sum=sum+line.length()+1;
         }
+
     }
 }
 void proof()
@@ -64,14 +62,12 @@ void proofHash()
     Node<string,Record> *ptr=h.find(txt);
     cout << ptr->getData();
 }
-
+*/
 int main(int argc, char *argv[])
 {
     //createHashForFile("Z.csv");
-
     QApplication a(argc, argv);
     MainWindow w;
     w.show();
-
     return a.exec();
 }

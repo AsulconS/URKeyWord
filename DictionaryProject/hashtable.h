@@ -3,6 +3,7 @@
 #include <iostream>
 #include <string>
 #include "node.h"
+#include "fstream"
 using namespace  std;
 template<typename K,typename V>
 class HashTable

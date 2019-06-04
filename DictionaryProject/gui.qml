@@ -10,8 +10,14 @@ Rectangle {
         text: name.leerNombre()
         y: 30
         anchors.horizontalCenter: page.horizontalCenter
-        font.pointSize: 24; font.bold: true
+        font.pointSize: 12; font.bold: true
     }
+    TextInput{
+        id:input;
+        text: name.leerNombre();
+
+    }
+
     MainWindow
     {
         id: name;

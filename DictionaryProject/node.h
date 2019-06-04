@@ -9,8 +9,16 @@ public:
         :start(s),end(e)
     {
     }
-    unsigned long getStart() const;
-    unsigned long getEnd() const;
+
+    unsigned long getStart() const
+    {
+        return start;
+    }
+
+    unsigned long getEnd() const
+    {
+        return end;
+    }
     friend std::ostream & operator << (std::ostream &out,Record &r)
     {
         out << "start" << r.getStart() << "\n";
@@ -94,13 +102,4 @@ void Node<K,V>::setNextPtr(Node<K, V> *value)
     nextPtr = value;
 }
 
-unsigned long Record::getStart() const
-{
-    return start;
-}
-
-unsigned long Record::getEnd() const
-{
-    return end;
-}
 #endif // NODE_H

@@ -9,9 +9,9 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    ui->quickWidget->rootContext()->setContextProperty("s",this);
-    qmlRegisterType<MainWindow>("com.qt.name",1,0,"MainWindow");
-    ui->quickWidget->setSource(QUrl(QStringLiteral("qrc:/gui.qml")));
+    //ui->quickWidget->rootContext()->setContextProperty("s",this);
+    //qmlRegisterType<MainWindow>("com.qt.name",1,0,"MainWindow");
+    //ui->quickWidget->setSource(QUrl(QStringLiteral("qrc:/gui.qml")));
     indexFile();
 }
 MainWindow::~MainWindow()
@@ -59,23 +59,26 @@ void MainWindow::indexFile()
             sum=sum+line.length()+1;
         }
     }
-    /*
-    cout << "index" << endl;
-    string ss="Zythum ";
-    Node<string,Record> *ptr=h.find(ss);
-    cout << ptr->getData();*/
 }
 
 void MainWindow::on_pushButton_clicked()
 {
-    QString sss=ui->lineEdit->text();
-    string ss="Zythum ";
-    Node<string,Record> *ptr=h.find(ss);
-    std::ifstream file("Z.csv");
-    int start=ptr->getData().getStart(),end=ptr->getData().getEnd();
-    file.seekg(start);
-    string s;
-    s.resize(end-start);
-    file.read(&s[0],end-start);
-    this->contenido=QString::fromStdString(s);
+    QString readString=ui->lineEdit->text();
+    string strForFind=readString.toStdString();
+    if(h.isInHash(strForFind))
+    {
+        Node<string,Record> *ptr=h.find(strForFind);
+        std::ifstream file("Z.csv");
+        int start=ptr->getData().getStart(),end=ptr->getData().getEnd();
+        file.seekg(start);
+        string s;
+        s.resize(end-start);
+        file.read(&s[0],end-start);
+        this->contenido=QString::fromStdString(s);
+        cout << s << endl;
+        ui->outputText->setText(this->contenido);
+    }
+    else{
+        cout << "not exist this word" << endl;
+    }
 }

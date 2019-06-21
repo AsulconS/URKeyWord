@@ -13,6 +13,7 @@ public:
     ~HashTable();
     void insert(K &,const V & );
     Node<K,V>* find(K &);
+    bool isInHash(K &);
     int getHash(K &);
     unsigned int getHashTableSize() const;
     void setHashTableSize(unsigned int value);

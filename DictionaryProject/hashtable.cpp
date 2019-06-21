@@ -52,9 +52,26 @@ Node<K,V> * HashTable<K,V>::find(K &key)
     {
         while (temPtr->getKey()!=key) {//find key on linked list
             temPtr=temPtr->getNextPtr();
+            if(temPtr->getNextPtr()==nullptr)
+                break;
         }
     }
     return temPtr;
+}
+
+template<typename K, typename V>
+bool HashTable<K,V>::isInHash(K &key)
+{
+    Node<K,V> *temPtr=this->table[this->getHash(key)%this->hashTableSize];
+    if(temPtr->getKey()!=key)
+    {
+        while (temPtr->getKey()!=key) {//find key on linked list
+            temPtr=temPtr->getNextPtr();
+            if(temPtr->getNextPtr()==nullptr)
+                return false;
+        }
+    }
+    return true;
 }
 template<typename K,typename V>
 int HashTable<K,V>::getHash(K &data)//get hash for only string data
